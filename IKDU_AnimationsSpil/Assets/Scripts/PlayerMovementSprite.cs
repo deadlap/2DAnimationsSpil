@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovementSprite : MonoBehaviour {
     Vector2 movement;
     Rigidbody2D myBody;
     Animator myAnimator;
@@ -20,13 +19,9 @@ public class PlayerMovement : MonoBehaviour {
     void OnMovement(InputValue value){
         movement = value.Get<Vector2>();
 
-        if (movement.x > 0) {
-            this.transform.localScale = new Vector3(1, 1, 1);
-        } else if(movement.x < 0) {
-            this.transform.localScale = new Vector3(-1, 1, 1);
-        }
-
         if(movement.x != 0 || movement.y != 0) {
+            myAnimator.SetFloat("x", movement.x);
+            myAnimator.SetFloat("y", movement.y);
             myAnimator.SetBool("IsWalking", true);
         } else {
             myAnimator.SetBool("IsWalking", false);
